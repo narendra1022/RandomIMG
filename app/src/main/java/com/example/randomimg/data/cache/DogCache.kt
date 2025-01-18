@@ -12,8 +12,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -62,5 +62,7 @@ class DogCache @Inject constructor(
         }
     }
 
-    fun getCachedDogs(): Flow<List<Dog>> = dogListFlow.asStateFlow()
+    fun getCachedDogs(): Flow<List<Dog>> = dogListFlow.map { dogs ->
+        dogs.reversed()
+    }
 }

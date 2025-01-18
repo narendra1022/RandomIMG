@@ -52,8 +52,7 @@ fun GalleryScreen(
                 title = {
                     Text(
                         text = "My Recently Generated Dogs",
-                        style = MaterialTheme.typography.bodyLarge,
-                        color = Color.Black
+                        style = MaterialTheme.typography.bodyLarge
                     )
                 },
                 navigationIcon = {
@@ -64,10 +63,7 @@ fun GalleryScreen(
                             tint = Color(66, 134, 244)
                         )
                     }
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = Color.White
-                )
+                }
             )
         }
     ) { paddingValues ->

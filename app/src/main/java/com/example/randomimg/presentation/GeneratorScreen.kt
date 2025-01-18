@@ -49,8 +49,7 @@ fun GeneratorScreen(
                 title = {
                     Text(
                         text = "Generate Dogs",
-                        style = MaterialTheme.typography.bodyLarge,
-                        color = Color.Black
+                        style = MaterialTheme.typography.bodyLarge
                     )
                 },
                 navigationIcon = {
