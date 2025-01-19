@@ -1,6 +1,6 @@
 package com.example.randomimg.data.repository
 
-import com.example.randomimg.data.api.Dog
+import com.example.randomimg.data.model.Dog
 import com.example.randomimg.data.api.DogApi
 import com.example.randomimg.data.cache.DogCache
 import kotlinx.coroutines.flow.Flow

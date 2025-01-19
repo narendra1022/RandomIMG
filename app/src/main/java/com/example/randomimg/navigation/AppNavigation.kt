@@ -4,9 +4,9 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.randomimg.presentation.GalleryScreen
-import com.example.randomimg.presentation.GeneratorScreen
-import com.example.randomimg.presentation.HomeScreen
+import com.example.randomimg.presentation.UIcomponents.GalleryScreen
+import com.example.randomimg.presentation.UIcomponents.GeneratorScreen
+import com.example.randomimg.presentation.UIcomponents.HomeScreen
 
 @Composable
 fun AppNavigation() {

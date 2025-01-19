@@ -1,6 +1,6 @@
-package com.example.randomimg.viewmodels
+package com.example.randomimg.presentation.viewmodels
 
-import com.example.randomimg.data.api.Dog
+import com.example.randomimg.data.model.Dog
 
 sealed class DogGeneratorState {
     object Initial : DogGeneratorState()

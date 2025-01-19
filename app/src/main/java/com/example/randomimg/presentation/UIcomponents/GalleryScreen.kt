@@ -1,17 +1,20 @@
-package com.example.randomimg.presentation
+package com.example.randomimg.presentation.UIcomponents
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -32,23 +35,22 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
-import com.example.randomimg.viewmodels.DogGeneratorState
-import com.example.randomimg.viewmodels.DogGeneratorViewModel
+import com.example.randomimg.presentation.viewmodels.GalleryViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun GeneratorScreen(
+fun GalleryScreen(
     navController: NavController,
-    viewModel: DogGeneratorViewModel = hiltViewModel()
+    viewModel: GalleryViewModel = hiltViewModel()
 ) {
-    val uiState by viewModel.uiState.collectAsState()
+    val dogs by viewModel.dogs.collectAsState()
 
     Scaffold(
         topBar = {
             TopAppBar(
                 title = {
                     Text(
-                        text = "Generate Dogs",
+                        text = "My Recently Generated Dogs",
                         style = MaterialTheme.typography.bodyLarge
                     )
                 },
@@ -64,64 +66,54 @@ fun GeneratorScreen(
             )
         }
     ) { paddingValues ->
-
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
                 .padding(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-
-            Box(
-                modifier = Modifier.weight(0.6f),
-                contentAlignment = Alignment.Center
-            ) {
-                when (val state = uiState) {
-                    is DogGeneratorState.Loading -> CircularProgressIndicator(
-                        color = Color(66, 134, 244)
+            if (dogs.isEmpty()) {
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxWidth(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = "No dogs generated yet!\nTry generating some cute dogs first.",
+                        style = MaterialTheme.typography.bodyLarge,
+                        textAlign = TextAlign.Center,
+                        color = Color.Gray
                     )
-
-                    is DogGeneratorState.Success -> {
+                }
+            } else {
+                LazyRow(
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
+                ) {
+                    items(dogs) { dog ->
                         AsyncImage(
-                            model = state.dog.imageUrl,
-                            contentDescription = "Random Dog",
+                            model = dog.imageUrl,
+                            contentDescription = "Dog Image",
                             modifier = Modifier
-                                .fillMaxWidth(0.8f)
-                                .aspectRatio(1f)
-                                .clip(RoundedCornerShape(24.dp)),
+                                .size(250.dp)
+                                .clip(RoundedCornerShape(16.dp)),
                             contentScale = ContentScale.Crop
                         )
                     }
-
-                    is DogGeneratorState.Error -> {
-                        Text(
-                            text = state.message,
-                            color = Color.Red,
-                            style = MaterialTheme.typography.bodyLarge,
-                            textAlign = TextAlign.Center
-                        )
-                    }
-
-                    else -> Unit
                 }
             }
 
-            Spacer(modifier = Modifier.height(6.dp))
+            Spacer(modifier = Modifier.height(24.dp))
 
-            Box(
-                modifier = Modifier
-                    .weight(0.2f)
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp),
-                contentAlignment = Alignment.TopCenter
-            ) {
-                NavigationButton(
-                    text = "Generate!",
-                    onClick = { viewModel.generateDog() }
-                )
-            }
+            NavigationButton(
+                text = "Clear Dogs",
+                onClick = { viewModel.clearGallery() }
+            )
         }
     }
-
 }

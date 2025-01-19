@@ -1,4 +1,4 @@
-package com.example.randomimg.viewmodels
+package com.example.randomimg.presentation.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

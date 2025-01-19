@@ -1,4 +1,4 @@
-package com.example.randomimg.presentation
+package com.example.randomimg.presentation.UIcomponents
 
 
 import androidx.compose.foundation.border

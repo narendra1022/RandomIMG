@@ -1,4 +1,4 @@
-package com.example.randomimg.data.api
+package com.example.randomimg.data.model
 
 import java.util.UUID
 
